@@ -74,14 +74,16 @@ export class Gameboard {
 
       // IF ALL THE SHIP SUNKED DISPLAY GAMEOVER AND CHANGE this.isGameOver to TRUE;
       if (this.army.every((ship) => ship.isSunk() === true)) {
-        console.log('GameOver');
         this.isGameOver = true;
       }
-    } else {
-      this.missedAttacks.push([+x, +y]);
+
+      this.coordinates.add(tmpCoordinates);
+      return 'hit';
     }
 
-    // PUT THE SHIP IN OBJECT(this.army) FOR TRACKING DAMAGE AND IF IT HAS SUNKED
-    this.coordinates.add(x + ',' + y);
+    this.missedAttacks.push([+x, +y]);
+    this.coordinates.add(tmpCoordinates);
+
+    return 'miss';
   }
 }
