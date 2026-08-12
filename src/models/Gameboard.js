@@ -6,6 +6,7 @@ export class Gameboard {
     this.coordinates = new Set();
     this.isGameOver = false;
     this.army = [];
+    this.missedAttacks = [];
   }
 
   placeShip(ship, x, y, orientation) {
@@ -61,6 +62,7 @@ export class Gameboard {
 
     //TRACKS ATTACK MARKS ON THE BOARD TO PREVENT ATTACKING TWICE OR MORE ON THE SAME COORDINATES
     const tmpCoordinates = `${x},${y}`;
+
     if (this.coordinates.has(tmpCoordinates)) return null;
 
     let shot = this.matrix[x][y];
@@ -75,6 +77,8 @@ export class Gameboard {
         console.log('GameOver');
         this.isGameOver = true;
       }
+    } else {
+      this.missedAttacks.push([+x, +y]);
     }
 
     // PUT THE SHIP IN OBJECT(this.army) FOR TRACKING DAMAGE AND IF IT HAS SUNKED
