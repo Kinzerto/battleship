@@ -27,6 +27,7 @@ function changeTurn() {
 }
 
 const zeroOrOneRound = Math.round(Math.random());
+
 if (zeroOrOneRound) {
   turn = 'P2';
   P1.classList.add('disabled');
@@ -46,32 +47,36 @@ function renderBoard(player, parent) {
 
       cell.addEventListener('click', () => {
         if (player1.gameboard.isGameOver || player2.gameboard.isGameOver) {
-          alert('GAME');
+          alert('GAME ' + turn + ' Win');
           return;
         }
 
         if (cell.children.length > 0) return;
 
-        const damaged = document.createElement('div');
-        const missed = document.createElement('div');
-
         //grabing the data attr value
         const row = cell.dataset.row;
         const column = cell.dataset.column;
 
-        const box = player.gameboard.matrix[row][column];
+        const result = player.gameboard.receiveAttack(row, column);
 
-        if (box) {
-          player.gameboard.receiveAttack(row, column);
-          damaged.classList.add('damaged');
+        const attackResult = document.createElement('div');
 
-          cell.appendChild(damaged);
+        if (result === 'hit') {
+          attackResult.classList.add('damaged');
+        } else if (result === 'miss') {
+          attackResult.classList.add('missed');
         } else {
-          player.gameboard.receiveAttack(row, column);
-          missed.classList.add('missed');
-
-          cell.appendChild(missed);
+          return;
         }
+
+        cell.appendChild(attackResult);
+
+        if (player1.gameboard.isGameOver || player2.gameboard.isGameOver) {
+          changeTurn();
+          alert('GAME ' + turn + ' Win');
+          return;
+        }
+
         changeTurn();
       });
 
@@ -79,5 +84,6 @@ function renderBoard(player, parent) {
     }
   }
 }
+
 renderBoard(player1, P1);
 renderBoard(player2, P2);
