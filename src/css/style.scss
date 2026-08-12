@@ -16,8 +16,10 @@ body {
   gap: 20px;
   .player1,
   .player2 {
-    &.disable {
-      // box-shadow: rgba(217, 241, 62, 0.993) 0px 3px 8px;
+    &.active {
+      box-shadow: rgba(217, 241, 62, 0.993) 0px 3px 8px;
+    }
+    &.disabled {
       pointer-events: none;
     }
     border-radius: 5px;
