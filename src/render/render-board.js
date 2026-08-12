@@ -3,9 +3,8 @@ import { Ship } from '../models/Ship.js';
 
 const board_wrapper = document.querySelector('.container .board-wrapper');
 
-const myBoard = board_wrapper.querySelector('.player1');
-const opponent = board_wrapper.querySelector('.player2');
-
+const P1 = board_wrapper.querySelector('.player1');
+const P2 = board_wrapper.querySelector('.player2');
 const carrier = new Ship(5);
 
 const player1 = new Player();
@@ -13,6 +12,28 @@ const player1 = new Player();
 player1.gameboard.placeShip(carrier, 0, 0, 'H');
 
 const player2 = new Player();
+
+let turn = 'P1';
+
+function changeTurn() {
+  turn = turn === 'P1' ? 'P2' : 'P1';
+  if (turn === 'P1') {
+    P1.classList.remove('disabled');
+    P2.classList.add('disabled');
+  } else if (turn === 'P2') {
+    P2.classList.remove('disabled');
+    P1.classList.add('disabled');
+  }
+}
+
+const zeroOrOneRound = Math.round(Math.random());
+if (zeroOrOneRound) {
+  turn = 'P2';
+  P1.classList.add('disabled');
+} else {
+  turn = 'P1';
+  P2.classList.add('disabled');
+}
 
 function renderBoard(player, parent) {
   for (let i = 0; i < player.gameboard.matrix.length; i++) {
@@ -25,7 +46,8 @@ function renderBoard(player, parent) {
 
       cell.addEventListener('click', () => {
         if (player1.gameboard.isGameOver || player2.gameboard.isGameOver) {
-          return true;
+          alert('GAME');
+          return;
         }
 
         if (cell.children.length > 0) return;
@@ -36,6 +58,7 @@ function renderBoard(player, parent) {
         //grabing the data attr value
         const row = cell.dataset.row;
         const column = cell.dataset.column;
+
         const box = player.gameboard.matrix[row][column];
 
         if (box) {
@@ -49,11 +72,12 @@ function renderBoard(player, parent) {
 
           cell.appendChild(missed);
         }
+        changeTurn();
       });
 
       parent.appendChild(cell);
     }
   }
 }
-renderBoard(player1, myBoard);
-renderBoard(player2, opponent);
+renderBoard(player1, P1);
+renderBoard(player2, P2);
