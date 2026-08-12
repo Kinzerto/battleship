@@ -6,19 +6,47 @@ body {
   min-height: 100vh;
   width: 100%;
   background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .board-wrapper {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   .player1,
   .player2 {
+    &.disable {
+      // box-shadow: rgba(217, 241, 62, 0.993) 0px 3px 8px;
+      pointer-events: none;
+    }
+    border-radius: 5px;
     // border: 1px solid green;
     display: grid;
-    grid-template-columns: repeat(10, 30px);
-    grid-template-rows: repeat(10, 30px);
+    gap: 1px;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
 
     div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .damaged {
+        width: 50%;
+        height: 50%;
+        border-radius: 100%;
+        border-width: 0;
+        background-color: red;
+      }
+      .missed {
+        width: 50%;
+        height: 50%;
+        border-radius: 100%;
+        border-width: 0;
+        background-color: brown;
+      }
+
+      border-radius: 4px;
       border: 1px solid black;
       cursor: pointer;
     }
