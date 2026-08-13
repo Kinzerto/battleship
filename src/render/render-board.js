@@ -1,42 +1,4 @@
-import { Player } from '../models/Player.js';
-import { Ship } from '../models/Ship.js';
-
-const board_wrapper = document.querySelector('.container .board-wrapper');
-
-const P1 = board_wrapper.querySelector('.player1');
-const P2 = board_wrapper.querySelector('.player2');
-const carrier = new Ship(5);
-
-const player1 = new Player();
-
-player1.gameboard.placeShip(carrier, 0, 0, 'H');
-
-const player2 = new Player();
-
-let turn = 'P1';
-
-function changeTurn() {
-  turn = turn === 'P1' ? 'P2' : 'P1';
-  if (turn === 'P1') {
-    P1.classList.remove('disabled');
-    P2.classList.add('disabled');
-  } else if (turn === 'P2') {
-    P2.classList.remove('disabled');
-    P1.classList.add('disabled');
-  }
-}
-
-const zeroOrOneRound = Math.round(Math.random());
-
-if (zeroOrOneRound) {
-  turn = 'P2';
-  P1.classList.add('disabled');
-} else {
-  turn = 'P1';
-  P2.classList.add('disabled');
-}
-
-function renderBoard(player, parent) {
+export function renderBoard(player, parent) {
   for (let i = 0; i < player.gameboard.matrix.length; i++) {
     for (let j = 0; j < player.gameboard.matrix[i].length; j++) {
       const cell = document.createElement('div');
@@ -45,45 +7,7 @@ function renderBoard(player, parent) {
       cell.dataset.row = i;
       cell.dataset.column = j;
 
-      cell.addEventListener('click', () => {
-        if (player1.gameboard.isGameOver || player2.gameboard.isGameOver) {
-          alert('GAME ' + turn + ' Win');
-          return;
-        }
-
-        if (cell.children.length > 0) return;
-
-        //grabing the data attr value
-        const row = cell.dataset.row;
-        const column = cell.dataset.column;
-
-        const result = player.gameboard.receiveAttack(row, column);
-
-        const attackResult = document.createElement('div');
-
-        if (result === 'hit') {
-          attackResult.classList.add('damaged');
-        } else if (result === 'miss') {
-          attackResult.classList.add('missed');
-        } else {
-          return;
-        }
-
-        cell.appendChild(attackResult);
-
-        if (player1.gameboard.isGameOver || player2.gameboard.isGameOver) {
-          changeTurn();
-          alert('GAME ' + turn + ' Win');
-          return;
-        }
-
-        changeTurn();
-      });
-
       parent.appendChild(cell);
     }
   }
 }
-
-renderBoard(player1, P1);
-renderBoard(player2, P2);
