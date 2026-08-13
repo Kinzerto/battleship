@@ -1,21 +1,6 @@
 import { Gameboard } from '../models/Gameboard.js';
 import { Ship } from '../models/Ship';
 
-/*
-Gameboard
-│
-├── placeShip()
-│   ├── places horizontal ship
-│   ├── places vertical ship
-│   ├── prevents ship going outside board
-│   └── prevents overlapping ships
-│
-└── receiveAttack()
-    ├── damages ship when hit
-    ├── records missed attack
-    ├── prevents attacking same coordinate twice
-    └── detects when all ships are sunk
-*/
 describe('Test Battleship Gameboard', () => {
   describe('Test placeShip() method', () => {
     it('places horizontal ship', () => {
@@ -71,8 +56,6 @@ describe('Test Battleship Gameboard', () => {
 
       board.placeShip(carrier, 0, 4, 'H');
       board.placeShip(battleship, 6, 0, 'V');
-
-      console.log(board.matrix);
 
       board.receiveAttack(0, 4);
       board.receiveAttack(0, 5);

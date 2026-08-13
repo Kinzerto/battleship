@@ -1,13 +1,13 @@
 import { Ship } from '../models/Ship.js';
 
 describe('Test class Ships length', () => {
-  const carrier = new Ship(5);
-  const battleship = new Ship(4);
-  const destroyer = new Ship(3);
-  const submarine = new Ship(3);
-  const patrol_boat = new Ship(2);
-
   it('returns the length of the ships', () => {
+    const carrier = new Ship(5);
+    const battleship = new Ship(4);
+    const destroyer = new Ship(3);
+    const submarine = new Ship(3);
+    const patrol_boat = new Ship(2);
+
     expect(carrier.length).toBe(5);
     expect(battleship.length).toBe(4);
     expect(destroyer.length).toBe(3);
@@ -16,6 +16,9 @@ describe('Test class Ships length', () => {
   });
 
   it('returns correct damage', () => {
+    const carrier = new Ship(5);
+    const battleship = new Ship(4);
+
     carrier.hit();
     carrier.hit();
     carrier.hit();
@@ -36,6 +39,8 @@ describe('Test class Ships length', () => {
   });
 
   it('returns true if ship has sunk', () => {
+    const carrier = new Ship(5);
+
     carrier.hit();
     carrier.hit();
     carrier.hit();
@@ -47,9 +52,12 @@ describe('Test class Ships length', () => {
   });
 
   it('returns false if ship is NOT sunk', () => {
+    const carrier = new Ship(5);
+
     carrier.hit();
     carrier.hit();
     carrier.hit();
-    expect(carrier.isSunk()).toBe(true);
+    carrier.hit();
+    expect(carrier.isSunk()).toBe(false);
   });
 });
