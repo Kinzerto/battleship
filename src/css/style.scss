@@ -12,8 +12,21 @@ body {
 }
 
 .board-wrapper {
-  display: flex;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(10, 40px);
+
+  row-gap: 20px;
+  column-gap: 100px;
+  .status {
+    grid-column: 1 / span 2;
+
+    text-align: center;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+
   .player1,
   .player2 {
     &.active {
