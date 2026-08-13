@@ -1,5 +1,3 @@
-import { Ship } from './Ship.js';
-
 export class Gameboard {
   constructor() {
     this.matrix = Array.from({ length: 10 }, () => Array(10).fill(null));
@@ -10,7 +8,7 @@ export class Gameboard {
   }
 
   placeShip(ship, x, y, orientation) {
-    if (x > 10 || y > 10 || x < 0 || y < 0) return;
+    if (x >= 10 || y >= 10 || x < 0 || y < 0) return;
 
     // IF ORIENTATION IS VERTICAL(V)
     if (orientation === 'V') {
