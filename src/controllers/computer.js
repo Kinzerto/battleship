@@ -3,6 +3,8 @@ import { changeTurn } from './turn.js';
 import { player1 } from './players.js';
 
 export function computer(P1) {
+  if (checkWinner()) return;
+
   let result;
   let row;
   let column;
