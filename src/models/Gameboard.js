@@ -8,17 +8,17 @@ export class Gameboard {
   }
 
   placeShip(ship, x, y, orientation) {
-    if (x >= 10 || y >= 10 || x < 0 || y < 0) return;
+    if (x >= 10 || y >= 10 || x < 0 || y < 0) return null;
 
     // IF ORIENTATION IS VERTICAL(V)
     if (orientation === 'V') {
       // CHECKS SHIP IF IT OVERLAP VERTICALLY FROM THE BOARD. IF TRUE STOP OPERATION
-      if (ship.length + x > 10) return;
+      if (ship.length + x > 10) return null;
 
       //CHECKS IF THE SHIP WILL OVERLAP TO OTHER SHIPS.IF TRUE STOPS OPERATION
       for (let i = 0; i < ship.length; i++) {
         const tmp = this.matrix[x + i][y];
-        if (tmp) return;
+        if (tmp) return null;
       }
 
       // PLACE SHIP IF IT FITS IN THE BOARD
@@ -33,12 +33,12 @@ export class Gameboard {
       // IF ORIENTATION IS HORIZONTALLY(H)
     } else if (orientation === 'H') {
       // CHECKS SHIP IF IT OVERLAP HORIZONTALLY FROM THE BOARD. IF TRUE STOP OPERATION
-      if (ship.length + y > 10) return;
+      if (ship.length + y > 10) return null;
 
       //CHECKS IF THE SHIP WILL OVERLAP TO OTHER SHIPS.IF TRUE STOPS OPERATION
       for (let i = 0; i < ship.length; i++) {
         const tmp = this.matrix[x][y + i];
-        if (tmp) return;
+        if (tmp) return null;
       }
 
       // PLACE SHIP IF IT FITS IN THE BOARD
@@ -48,6 +48,7 @@ export class Gameboard {
 
       // PUT THE SHIP IN OBJECT(this.army) FOR TRACKING DAMAGE AND IF IT HAS SUNKED
       this.army.push(ship);
+      return true;
     }
   }
 
