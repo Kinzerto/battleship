@@ -34,10 +34,7 @@ export function enablePlayerAttacks(P2) {
 
       if (checkWinner()) return;
       changeTurn();
-
-      setTimeout(() => {
-        computer(P1);
-      }, 1000);
+      computer(P1);
     });
   }
 }

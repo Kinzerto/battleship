@@ -14,8 +14,7 @@ body {
 .board-wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(10, 40px);
-
+  grid-template-rows: auto;
   row-gap: 20px;
   column-gap: 100px;
   .status {
@@ -63,9 +62,22 @@ body {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
       }
 
+      &.active-hover {
+        background-color: green;
+      }
+
       border-radius: 4px;
       border: 1px solid wheat;
       cursor: pointer;
+    }
+  }
+  .shipContainer {
+    grid-column: 1 / span 2;
+    div {
+      margin-bottom: 10px;
+
+      height: 40px;
+      border: 1px solid red;
     }
   }
 }
