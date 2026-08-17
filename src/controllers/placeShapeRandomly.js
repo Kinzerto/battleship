@@ -1,22 +1,11 @@
 import { renderShip } from '../render/renderShips.js';
+import { player1 } from './players.js';
+import { reset } from './restart.js';
 
 export function placeShapeRandomly(player) {
   if (player.name !== 'Computer') {
-    player.gameboard.matrix = Array.from({ length: 10 }, () =>
-      Array(10).fill(null),
-    );
-
-    for (let i = 0; i < 10; i++) {
-      for (let j = 0; j < 10; j++) {
-        const boardElement = document.querySelector(
-          `.player1 div[data-row="${i}"][data-column="${j}"]`,
-        );
-        boardElement.style.backgroundColor = 'inherit';
-      }
-    }
-    player.gameboard.army = [];
+    reset(player1);
   }
-
   const orientations = ['H', 'V'];
 
   if (player.gameboard.army.length >= player.ships.length) return;
@@ -36,7 +25,4 @@ export function placeShapeRandomly(player) {
       renderShip(ship.length, x, y, orientation);
     }
   });
-
-  console.log(player.gameboard.matrix);
-  console.log(player.gameboard.army);
 }
