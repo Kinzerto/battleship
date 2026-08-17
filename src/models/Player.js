@@ -13,4 +13,18 @@ export class Player {
       new Ship(2),
     ];
   }
+
+  resetGameboard() {
+    this.gameboard = new Gameboard();
+  }
+
+  resetShipDamage() {
+    this.ships = [
+      new Ship(5),
+      new Ship(4),
+      new Ship(3),
+      new Ship(3),
+      new Ship(2),
+    ];
+  }
 }
