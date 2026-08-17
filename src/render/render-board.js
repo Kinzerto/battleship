@@ -1,4 +1,5 @@
 export function renderBoard(player, parent) {
+  parent.replaceChildren();
   for (let i = 0; i < player.gameboard.matrix.length; i++) {
     for (let j = 0; j < player.gameboard.matrix[i].length; j++) {
       const cell = document.createElement('div');
