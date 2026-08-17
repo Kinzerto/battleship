@@ -1,4 +1,4 @@
-import { turn } from './turn.js';
+import { gameState } from './state.js';
 import { changeTurn } from './turn.js';
 import { checkWinner } from './checkWinner.js';
 import { computer } from './computer.js';
@@ -9,7 +9,7 @@ export function enablePlayerAttacks(P2) {
 
   for (const cell of cells) {
     cell.addEventListener('click', () => {
-      if (turn !== 'P1') return;
+      if (gameState.turn !== 'P1') return;
       if (checkWinner()) return;
 
       //grabing the data attr value

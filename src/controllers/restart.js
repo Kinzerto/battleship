@@ -1,7 +1,7 @@
-import { gameState, restart } from '../index.js';
 import { renderBoard } from '../render/render-board.js';
 import { manual } from './manualPlaceShip.js';
 import { P1, P2, player1, player2 } from './players.js';
+import { gameState } from './state.js';
 
 export function reset() {
   player1.resetGameboard();

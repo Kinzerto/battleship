@@ -1,10 +1,10 @@
-export let turn = Math.random() < 0.5 ? 'P1' : 'P2';
+import { gameState } from './state.js';
 
 const status = document.querySelector('.status');
 
-status.textContent = `Player ${turn}'s Turn`;
+status.textContent = `Player ${gameState.turn}'s Turn`;
 
 export function changeTurn() {
-  turn = turn === 'P1' ? 'P2' : 'P1';
-  status.textContent = `Player ${turn}'s Turn`;
+  gameState.turn = gameState.turn === 'P1' ? 'P2' : 'P1';
+  status.textContent = `Player ${gameState.turn}'s Turn`;
 }
