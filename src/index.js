@@ -3,7 +3,12 @@ import './css/style.scss';
 
 import { enablePlayerAttacks } from './controllers/playerTurn.js';
 import { computer } from './controllers/computer.js';
-import { P1, P2, player1, player2 } from './controllers/players.js';
+import {
+  P1Element,
+  P2Element,
+  player1,
+  player2,
+} from './controllers/players.js';
 import { placeShapeRandomly } from './controllers/placeShapeRandomly.js';
 
 import { renderBoard } from './render/render-board.js';
@@ -12,14 +17,13 @@ import { reset } from './controllers/restart.js';
 import { gameState } from './controllers/state.js';
 
 function playGame() {
-  renderBoard(player2, P2);
+  renderBoard(player2, P2Element);
   placeShapeRandomly(player2);
 
-  enablePlayerAttacks(P2);
-  enablePlayerAttacks(P2);
+  enablePlayerAttacks(P2Element);
 
   if (gameState.turn === 'P2') {
-    computer(P1);
+    computer(P1Element);
   }
 }
 

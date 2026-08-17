@@ -2,7 +2,7 @@ import { gameState } from './state.js';
 import { changeTurn } from './turn.js';
 import { checkWinner } from './checkWinner.js';
 import { computer } from './computer.js';
-import { P1, player2 } from './players.js';
+import { P1Element, player2 } from './players.js';
 
 export function enablePlayerAttacks(P2) {
   const cells = P2.children;
@@ -34,7 +34,10 @@ export function enablePlayerAttacks(P2) {
 
       if (checkWinner()) return;
       changeTurn();
-      computer(P1);
+
+      setTimeout(() => {
+        computer(P1Element);
+      }, 1000);
     });
   }
 }

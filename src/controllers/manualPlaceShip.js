@@ -1,5 +1,5 @@
 import { renderShip } from '../render/renderShips.js';
-import { player1, P1 } from './players.js';
+import { player1, P1Element } from './players.js';
 
 const shipContainer = document.querySelector('.shipContainer');
 
@@ -38,11 +38,11 @@ export function manual() {
   });
 }
 
-P1.addEventListener('dragover', (e) => {
+P1Element.addEventListener('dragover', (e) => {
   e.preventDefault();
 });
 
-P1.addEventListener('drop', (e) => {
+P1Element.addEventListener('drop', (e) => {
   e.preventDefault();
   const row = +e.target.dataset.row;
   const column = +e.target.dataset.column;
