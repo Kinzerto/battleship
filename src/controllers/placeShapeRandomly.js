@@ -1,4 +1,4 @@
-import { renderShip } from '../render/renderShips.js';
+import { renderShip } from '../render/renderPlacedShips.js';
 import { player1 } from './players.js';
 import { reset } from './restart.js';
 

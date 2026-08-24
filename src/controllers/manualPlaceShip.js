@@ -1,4 +1,4 @@
-import { renderShip } from '../render/renderShips.js';
+import { renderShip } from '../render/renderPlacedShips.js';
 import { player1, P1Element } from './players.js';
 
 const shipContainer = document.querySelector('.shipContainer');
