@@ -1,8 +1,6 @@
 import './css/reset.scss';
 import './css/style.scss';
 
-import { enablePlayerAttacks } from './controllers/playerTurn.js';
-import { computer } from './controllers/computer.js';
 import {
   P1Element,
   P2Element,
@@ -15,23 +13,19 @@ import { renderBoard } from './render/render-board.js';
 import { manual } from './controllers/manualPlaceShip.js';
 import { reset } from './controllers/restart.js';
 import { gameState } from './controllers/state.js';
+import { activeBoard, status, whosTurn } from './controllers/turn.js';
+import { showEnemyShipsName } from './render/enemyShipsStatus.js';
+import { playGame } from './controllers/playGame.js';
 
-function playGame() {
-  renderBoard(player2, P2Element);
-  placeShapeRandomly(player2);
+manual(player1);
+renderBoard(player1, P1Element);
+renderBoard(player2, P2Element);
+showEnemyShipsName(player2);
+status.textContent = 'Place all ships';
 
-  enablePlayerAttacks(P2Element);
-
-  if (gameState.turn === 'P2') {
-    computer(P1Element);
-  }
-}
-
-export const restart = document.querySelector('.board-wrapper .restart');
+export const restart = document.querySelector(' .restart');
 const random = document.querySelector('.random');
 const play = document.querySelector('.play');
-
-manual();
 
 //restart button
 restart.addEventListener('click', () => {
@@ -43,15 +37,27 @@ random.addEventListener('click', () => {
   if (gameState.inGame) return;
 
   placeShapeRandomly(player1);
+
   const shipContainer = document.querySelector('.shipContainer');
 
-  shipContainer.textContent = '';
+  const ships = shipContainer.querySelectorAll('.ship');
+
+  ships.forEach((ship) => {
+    ship.classList.add('placed');
+  });
 });
 
 //play button
 play.addEventListener('click', () => {
   if (gameState.inGame) return;
-  if (player1.gameboard.army.length < 5) return;
+  if (player1.gameboard.army.length < 5) {
+    status.textContent = 'Place all ships';
+    return;
+  }
+
   playGame();
+  activeBoard();
+  whosTurn();
+
   gameState.inGame = true;
 });
