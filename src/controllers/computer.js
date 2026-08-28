@@ -1,6 +1,7 @@
 import { checkWinner } from './checkWinner.js';
 import { changeTurn } from './turn.js';
 import { player1 } from './players.js';
+import { shipContainer } from './manualPlaceShip.js';
 
 export function computer(P1) {
   if (checkWinner()) return;
@@ -16,19 +17,31 @@ export function computer(P1) {
     result = player1.gameboard.receiveAttack(row, column);
   } while (result === null);
 
-  const attackResult = document.createElement('div');
-
   const box = P1.querySelector(`[data-row="${row}"][data-column="${column}"]`);
 
-  if (result === 'hit') {
-    attackResult.classList.add('damaged');
+  if (result[0] === 'hit') {
+    const hitmark = box.querySelector('.hitmark');
+    const damageShip = box.querySelector('.ship');
+
+    const shipType = shipContainer.querySelector(`.${damageShip.classList[1]}`);
+
+    //in which length on ship is hit
+    const damageLocation = damageShip.classList[2];
+
+    //get the target box
+    const displayDamage = shipType.querySelector(`.${damageLocation}`);
+
+    displayDamage.classList.add('hit');
+
+    hitmark.classList.add('hit');
   } else if (result === 'miss') {
+    const attackResult = document.createElement('div');
     attackResult.classList.add('missed');
+    box.appendChild(attackResult);
   } else {
     return;
   }
 
-  box.appendChild(attackResult);
   if (checkWinner()) return;
 
   changeTurn();
