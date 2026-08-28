@@ -77,7 +77,7 @@ export class Gameboard {
       }
 
       this.coordinates.add(tmpCoordinates);
-      return 'hit';
+      return ['hit', shot];
     }
 
     this.missedAttacks.push([+x, +y]);
