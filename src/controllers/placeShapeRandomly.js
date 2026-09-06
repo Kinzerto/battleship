@@ -1,19 +1,22 @@
+import { showEnemyShipsName } from '../render/enemyShipsStatus.js';
+import { renderBoard } from '../render/render-board.js';
 import { renderShip } from '../render/renderPlacedShips.js';
-import { player1 } from './players.js';
+import { activePlayer, shipContainer2 } from './manualPlaceShip.js';
+import { P1Element, player1, player2 } from './players.js';
 import { reset } from './restart.js';
-import { shipContainer } from './manualPlaceShip.js';
+import { gameState } from './state.js';
 import { status } from './turn.js';
 
-export function placeShapeRandomly(player) {
-  if (player.name !== 'Computer') {
-    reset(player1);
-  }
+export function placeShapeRandomly(player, shipBerth, boardContainer) {
+  randomAgain(player, boardContainer);
 
   const orientations = ['H', 'V'];
 
   if (player.gameboard.army.length >= player.ships.length) return;
+
   status.textContent = 'PRESS PLAY TO START';
 
+  //place on board based on random
   player.ships.forEach((ship) => {
     let placed = false;
     let x, y, orientation;
@@ -25,14 +28,30 @@ export function placeShapeRandomly(player) {
 
       placed = player.gameboard.placeShip(ship, x, y, orientation);
     }
-    if (player.name !== 'Computer') {
-      renderShip(ship.length, x, y, orientation, ship.name);
+
+    if (gameState.isComputerMode && boardContainer.classList[0] !== 'player2') {
+      renderShip(ship.length, x, y, orientation, ship.name, boardContainer);
+    }
+    if (!gameState.isComputerMode) {
+      renderShip(ship.length, x, y, orientation, ship.name, boardContainer);
     }
   });
 
-  const ships = shipContainer.querySelectorAll(`.ship`);
+  const ships = shipBerth.querySelectorAll(`.ship`);
+
   ships.forEach((ship) => {
     ship.draggable = false;
     ship.classList.add('draggableOff');
   });
+}
+
+function randomAgain(player, boardContainer) {
+  boardContainer.replaceChildren();
+  player.resetGameboard();
+
+  player.resetShipDamage();
+
+  boardContainer.replaceChildren();
+
+  renderBoard(player, boardContainer);
 }

@@ -18,7 +18,7 @@ export class Player {
       new Ship(4, 'battleship'),
       new Ship(3, 'destroyer'),
       new Ship(3, 'submarine'),
-      new Ship(2, 'patrolBoat'),
+      new Ship(2, 'patrol'),
     ];
   }
 

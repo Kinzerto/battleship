@@ -1,7 +1,7 @@
 import { checkWinner } from './checkWinner.js';
 import { changeTurn } from './turn.js';
 import { player1 } from './players.js';
-import { shipContainer } from './manualPlaceShip.js';
+import { shipContainer, shipContainer1 } from './manualPlaceShip.js';
 
 export function computer(P1) {
   if (checkWinner()) return;
@@ -22,13 +22,19 @@ export function computer(P1) {
   if (result[0] === 'hit') {
     const hitmark = box.querySelector('.hitmark');
     const damageShip = box.querySelector('.ship');
-
-    const shipType = shipContainer.querySelector(`.${damageShip.classList[1]}`);
+    console.log(damageShip);
+    //berth
+    const shipType = shipContainer1.querySelector(
+      `.${damageShip.classList[1]}`,
+    );
 
     //in which length on ship is hit
     const damageLocation = damageShip.classList[2];
+    // const damageLocation = damageShip;
 
     //get the target box
+    // console.log(shipType);
+    // console.log(damageLocation);
     const displayDamage = shipType.querySelector(`.${damageLocation}`);
 
     displayDamage.classList.add('hit');

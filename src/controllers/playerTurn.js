@@ -2,23 +2,22 @@ import { gameState } from './state.js';
 import { changeTurn } from './turn.js';
 import { checkWinner } from './checkWinner.js';
 import { computer } from './computer.js';
-import { P1Element, player2 } from './players.js';
-import { yard } from '../render/enemyShipsStatus.js';
+import { P1Element, player1, player2 } from './players.js';
 
-export function enablePlayerAttacks(P2) {
-  const cells = P2.children;
+export function enablePlayerAttacks(player, playerElement, shipBerth) {
+  const cells = playerElement.children;
 
   //board cells
   for (const cell of cells) {
     cell.addEventListener('click', () => {
-      if (gameState.turn !== 'P1') return;
+      // if (gameState.turn !== 'P1' && gameState.isComputerMode === true) return;
       if (checkWinner()) return;
 
       //grabing the data attr value
       const row = cell.dataset.row;
       const column = cell.dataset.column;
 
-      const result = player2.gameboard.receiveAttack(row, column);
+      const result = player.gameboard.receiveAttack(row, column);
 
       if (result === null) return;
 
@@ -30,7 +29,7 @@ export function enablePlayerAttacks(P2) {
 
         //check if sunked
         if (ship.isSunk()) {
-          const sunkShip = yard.querySelector(`.${ship.name}`);
+          const sunkShip = shipBerth.querySelector(`.${ship.name}`);
           sunkShip.classList.add('sunked');
         }
       } else if (result === 'miss') {
@@ -40,13 +39,19 @@ export function enablePlayerAttacks(P2) {
       }
 
       cell.appendChild(attackResult);
+      console.log(player2.gameboard);
+      console.log(player1.gameboard);
 
       if (checkWinner()) return;
 
       changeTurn();
-      setTimeout(() => {
-        computer(P1Element);
-      }, 500);
+
+      //if Computer mode
+      if (gameState.isComputerMode) {
+        setTimeout(() => {
+          computer(P1Element, P1Element);
+        }, 500);
+      }
     });
   }
 }

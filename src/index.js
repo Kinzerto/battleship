@@ -10,22 +10,27 @@ import {
 import { placeShapeRandomly } from './controllers/placeShapeRandomly.js';
 
 import { renderBoard } from './render/render-board.js';
-import { manual } from './controllers/manualPlaceShip.js';
+import {
+  activePlayer,
+  addBoardListeners,
+  LockShips,
+} from './controllers/manualPlaceShip.js';
 import { reset } from './controllers/restart.js';
 import { gameState } from './controllers/state.js';
 import { activeBoard, status, whosTurn } from './controllers/turn.js';
-import { showEnemyShipsName } from './render/enemyShipsStatus.js';
+// import { showEnemyShipsName } from './render/enemyShipsStatus.js';
 import { playGame } from './controllers/playGame.js';
 
-manual(player1);
 renderBoard(player1, P1Element);
 renderBoard(player2, P2Element);
-showEnemyShipsName(player2);
+// showEnemyShipsName(player2);
+
 status.textContent = 'Place all ships';
 
 export const restart = document.querySelector(' .restart');
 const random = document.querySelector('.random');
 const play = document.querySelector('.play');
+export const lock = document.querySelector('.lock');
 
 //restart button
 restart.addEventListener('click', () => {
@@ -34,13 +39,19 @@ restart.addEventListener('click', () => {
 
 //random button
 random.addEventListener('click', () => {
+  console.log('ccw');
+  console.log('Kinth');
   if (gameState.inGame) return;
 
-  placeShapeRandomly(player1);
+  console.log(activePlayer);
 
-  const shipContainer = document.querySelector('.shipContainer');
+  placeShapeRandomly(
+    activePlayer.player,
+    activePlayer.berthContainer,
+    activePlayer.boardContainer,
+  );
 
-  const ships = shipContainer.querySelectorAll('.ship');
+  const ships = activePlayer.berthContainer.querySelectorAll('.ship');
 
   ships.forEach((ship) => {
     ship.classList.add('placed');
@@ -50,14 +61,16 @@ random.addEventListener('click', () => {
 //play button
 play.addEventListener('click', () => {
   if (gameState.inGame) return;
+
   if (player1.gameboard.army.length < 5) {
     status.textContent = 'Place all ships';
     return;
   }
 
   playGame();
-  activeBoard();
-  whosTurn();
+  console.log(gameState.turn);
+});
 
-  gameState.inGame = true;
+lock.addEventListener('click', () => {
+  LockShips();
 });

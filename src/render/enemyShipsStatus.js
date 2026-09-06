@@ -1,17 +1,16 @@
-export const yard = document.querySelector('.yard');
+export function showEnemyShipsName(player, shipBerth) {
+  shipBerth.replaceChildren();
 
-export function showEnemyShipsName(player) {
-  yard.replaceChildren();
   const containShip = document.createElement('div');
   containShip.classList.add('containShip');
 
   const ships = player.ships;
   const header = document.createElement('div');
-  header.textContent = 'Enemy ships';
+  header.textContent = `${player.name}'s Fleet`;
   header.classList.add('title');
 
-  yard.appendChild(header);
-  yard.appendChild(containShip);
+  shipBerth.appendChild(header);
+  shipBerth.appendChild(containShip);
 
   ships.forEach((ship) => {
     const shipName = document.createElement('span');
