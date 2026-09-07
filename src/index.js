@@ -16,10 +16,11 @@ import {
   LockShips,
 } from './controllers/manualPlaceShip.js';
 import { reset } from './controllers/restart.js';
-import { gameState } from './controllers/state.js';
-import { activeBoard, status, whosTurn } from './controllers/turn.js';
+import { gameState } from './state/state.js';
+import { activeBoard, whosTurn } from './controllers/turn.js';
 // import { showEnemyShipsName } from './render/enemyShipsStatus.js';
 import { playGame } from './controllers/playGame.js';
+import { status } from './controllers/players.js';
 
 renderBoard(player1, P1Element);
 renderBoard(player2, P2Element);

@@ -1,13 +1,18 @@
-import { gameState } from './state.js';
-import { P1Element, P2Element, player1, player2 } from './players.js';
-import { shipContainer1, shipContainer2 } from './manualPlaceShip.js';
-export const status = document.querySelector('.status');
+import { gameState } from '../state/state.js';
+import {
+  P1Element,
+  P2Element,
+  shipContainer1,
+  shipContainer2,
+} from './players.js';
+import { whosTurn } from '../render/renderTurnStatus.js';
+import { status } from './players.js';
 
 status.textContent = `Player ${gameState.turn}'s Turn`;
 
 export function changeTurn() {
   gameState.turn = gameState.turn === 'P1' ? 'P2' : 'P1';
-  whosTurn();
+  whosTurn(status);
 
   if (!gameState.inGame) return;
   activeBoard();
@@ -28,10 +33,3 @@ export function activeBoard() {
     shipContainer2.classList.remove('active');
   }
 }
-
-export function whosTurn() {
-  const GameName = gameState.turn === 'P1' ? player1.name : player2.name;
-  status.textContent = `${GameName}'s Turn`;
-}
-
-export function change() {}

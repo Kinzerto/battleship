@@ -1,17 +1,19 @@
-// import { shipContainer1, shipContainer2 } from '../index.js';
-// import { showEnemyShipsName } from '../render/enemyShipsStatus.js';
 import { renderShip } from '../render/renderPlacedShips.js';
-import { player1, P1Element, player2, P2Element } from './players.js';
-import { gameState } from './state.js';
-import { activeBoard, status } from './turn.js';
-
-export const shipContainer1 = document.querySelector('.shipContainer');
-export const shipContainer2 = document.querySelector('.yard');
+import {
+  player1,
+  P1Element,
+  player2,
+  P2Element,
+  shipContainer1,
+  shipContainer2,
+} from './players.js';
+import { gameState } from '../state/state.js';
+import { activeBoard } from './turn.js';
+import { status } from './players.js';
 
 let pickedShip;
 let targetCells = [];
 let targetBox;
-let clone;
 
 export let activePlayer = {
   boardContainer: P1Element,
@@ -163,8 +165,6 @@ export function manual(player, shipBerth) {
       const clonedDiv = shipEl.cloneNode(true);
       clonedDiv.classList.add('clone');
       clonedDiv.dataset.isdrag = 'true';
-
-      clone = clonedDiv;
     });
 
     shipEl.addEventListener('dragend', (e) => {

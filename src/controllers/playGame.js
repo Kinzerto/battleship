@@ -1,15 +1,20 @@
 import { showEnemyShipsName } from '../render/enemyShipsStatus.js';
 import { computer } from './computer.js';
+import { activePlayer } from './manualPlaceShip.js';
+import { placeShapeRandomly } from './placeShapeRandomly.js';
 import {
-  activePlayer,
+  P1Element,
+  P2Element,
+  player1,
+  player2,
   shipContainer1,
   shipContainer2,
-} from './manualPlaceShip.js';
-import { placeShapeRandomly } from './placeShapeRandomly.js';
-import { P1Element, P2Element, player1, player2 } from './players.js';
+} from './players.js';
 import { enablePlayerAttacks } from './playerTurn.js';
-import { gameState } from './state.js';
-import { activeBoard, status, whosTurn } from './turn.js';
+import { gameState } from '../state/state.js';
+import { activeBoard } from './turn.js';
+import { whosTurn } from '../render/renderTurnStatus.js';
+import { status } from './players.js';
 
 export function playGame() {
   if (gameState.isComputerMode) {
@@ -31,7 +36,7 @@ export function playGame() {
     gameState.inGame = true;
 
     activeBoard();
-    whosTurn();
+    whosTurn(status);
     showEnemyShipsName(player2, shipContainer2);
 
     return;
@@ -47,7 +52,7 @@ export function playGame() {
   enablePlayerAttacks(player1, P1Element, shipContainer1);
 
   activeBoard();
-  whosTurn();
+  whosTurn(status);
   showEnemyShipsName(player1, shipContainer1);
   showEnemyShipsName(player2, shipContainer2);
 

@@ -1,4 +1,4 @@
-import { gameState } from './state.js';
+import { gameState } from '../state/state.js';
 import { changeTurn } from './turn.js';
 import { checkWinner } from './checkWinner.js';
 import { computer } from './computer.js';

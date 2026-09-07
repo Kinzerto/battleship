@@ -1,11 +1,7 @@
-import { showEnemyShipsName } from '../render/enemyShipsStatus.js';
 import { renderBoard } from '../render/render-board.js';
 import { renderShip } from '../render/renderPlacedShips.js';
-import { activePlayer, shipContainer2 } from './manualPlaceShip.js';
-import { P1Element, player1, player2 } from './players.js';
-import { reset } from './restart.js';
-import { gameState } from './state.js';
-import { status } from './turn.js';
+import { gameState } from '../state/state.js';
+import { status } from './players.js';
 
 export function placeShapeRandomly(player, shipBerth, boardContainer) {
   randomAgain(player, boardContainer);

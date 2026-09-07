@@ -1,7 +1,6 @@
 import { checkWinner } from './checkWinner.js';
 import { changeTurn } from './turn.js';
-import { player1 } from './players.js';
-import { shipContainer, shipContainer1 } from './manualPlaceShip.js';
+import { player1, shipContainer1 } from './players.js';
 
 export function computer(P1) {
   if (checkWinner()) return;

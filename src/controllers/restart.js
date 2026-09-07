@@ -1,15 +1,16 @@
 // import { showEnemyShipsName } from '../render/enemyShipsStatus.js';
 import { renderBoard } from '../render/render-board.js';
+import { activePlayer, addBoardListeners, manual } from './manualPlaceShip.js';
 import {
-  activePlayer,
-  addBoardListeners,
-  manual,
+  P1Element,
+  P2Element,
+  player1,
+  player2,
   shipContainer1,
   shipContainer2,
-} from './manualPlaceShip.js';
-import { P1Element, P2Element, player1, player2 } from './players.js';
-import { gameState } from './state.js';
-import { status } from './turn.js';
+} from './players.js';
+import { gameState } from '../state/state.js';
+import { status } from './players.js';
 
 export function reset() {
   player1.resetGameboard();
