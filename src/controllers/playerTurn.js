@@ -11,6 +11,7 @@ export function enablePlayerAttacks(player, playerElement, shipBerth) {
   for (const cell of cells) {
     cell.addEventListener('click', () => {
       // if (gameState.turn !== 'P1' && gameState.isComputerMode === true) return;
+      if (cell.classList[0] === 'corner') return;
       if (checkWinner()) return;
 
       //grabing the data attr value
