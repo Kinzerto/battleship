@@ -1,6 +1,4 @@
-import { player1, player2 } from './players.js';
-
-const status = document.querySelector('.status');
+import { player1, player2, status } from './players.js';
 
 export function checkWinner() {
   if (player2.gameboard.isGameOver) {

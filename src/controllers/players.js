@@ -1,12 +1,27 @@
 import { Player } from '../models/Player.js';
 
-export const P1Element = document.querySelector('.player1');
-export const P2Element = document.querySelector('.player2');
+export let P1Element, P2Element;
+export let player1, player2;
+export let shipContainer1, shipContainer2;
+export let status;
+export let activePlayer;
 
-export const player1 = new Player('Kinth');
-export const player2 = new Player('Computer');
+export function initialize(play1, play2) {
+  P1Element = document.querySelector('.player1');
+  P2Element = document.querySelector('.player2');
 
-export const shipContainer1 = document.querySelector('.shipContainer');
-export const shipContainer2 = document.querySelector('.yard');
+  console.log(play1);
+  player1 = new Player(play1);
+  player2 = new Player(play2);
 
-export const status = document.querySelector('.status');
+  shipContainer1 = document.querySelector('.shipContainer');
+  shipContainer2 = document.querySelector('.yard');
+
+  status = document.querySelector('.status');
+
+  activePlayer = {
+    boardContainer: P1Element,
+    player: player1,
+    berthContainer: shipContainer1,
+  };
+}

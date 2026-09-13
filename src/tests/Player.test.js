@@ -4,7 +4,7 @@ describe('Test Player class', () => {
   test('player has a default name', () => {
     const player = new Player();
 
-    expect(player.name).toBe('Player');
+    expect(player.name).toBe('Computer');
   });
 
   test('player can have a custom name', () => {

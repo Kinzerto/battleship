@@ -3,6 +3,19 @@ import { renderShip } from '../render/renderPlacedShips.js';
 import { gameState } from '../state/state.js';
 import { status } from './players.js';
 
+//if random is clicked twice or more resets the board
+function randomAgain(player, boardContainer) {
+  boardContainer.replaceChildren();
+  player.resetGameboard();
+
+  //delete later
+  player.resetShipDamage();
+
+  boardContainer.replaceChildren();
+
+  renderBoard(player, boardContainer);
+}
+
 export function placeShapeRandomly(player, shipBerth, boardContainer) {
   randomAgain(player, boardContainer);
 
@@ -20,13 +33,17 @@ export function placeShapeRandomly(player, shipBerth, boardContainer) {
     while (!placed) {
       x = Math.floor(Math.random() * 10);
       y = Math.floor(Math.random() * 10);
-      orientation = orientations[Math.round(Math.random())];
 
+      orientation =
+        orientations[Math.floor(Math.random() * orientations.length)];
       placed = player.gameboard.placeShip(ship, x, y, orientation);
     }
 
-    if (gameState.isComputerMode && boardContainer.classList[0] !== 'player2') {
+    if (gameState.isComputerMode && player.name !== 'Computer') {
       renderShip(ship.length, x, y, orientation, ship.name, boardContainer);
+    } else if (gameState.isComputerMode && player.name === 'Computer') {
+      renderShip(ship.length, x, y, orientation, ship.name, boardContainer);
+      boardContainer.classList.add('hidden');
     }
     if (!gameState.isComputerMode) {
       renderShip(ship.length, x, y, orientation, ship.name, boardContainer);
@@ -39,15 +56,4 @@ export function placeShapeRandomly(player, shipBerth, boardContainer) {
     ship.draggable = false;
     ship.classList.add('draggableOff');
   });
-}
-
-function randomAgain(player, boardContainer) {
-  boardContainer.replaceChildren();
-  player.resetGameboard();
-
-  player.resetShipDamage();
-
-  boardContainer.replaceChildren();
-
-  renderBoard(player, boardContainer);
 }

@@ -1,5 +1,20 @@
-export function renderGame(parent) {
-  parent.replaceChildren();
+import {
+  addBoardListeners,
+  LockShips,
+  manual,
+} from '../controllers/manualPlaceShip.js';
+import { placeShapeRandomly } from '../controllers/placeShapeRandomly.js';
+import { activePlayer, initialize, player1 } from '../controllers/players.js';
+import { playGame } from '../controllers/playGame.js';
+import { reset } from '../controllers/restart.js';
+import { startGame } from '../controllers/startGame.js';
+import { gameState } from '../state/state.js';
+import { renderStartPage } from './renderStartPage.js';
+
+const bodyEl = document.querySelector('body');
+
+export function renderGame() {
+  bodyEl.replaceChildren();
 
   const container = document.createElement('div');
   container.classList.add('container');
@@ -8,6 +23,7 @@ export function renderGame(parent) {
   boardWrapper.classList.add('board-wrapper');
 
   const status = document.createElement('div');
+  status.textContent = 'Place Ships';
   status.classList.add('status');
 
   const board1 = document.createElement('div');
@@ -71,9 +87,59 @@ export function renderGame(parent) {
   lock.classList.add('lock');
   lock.textContent = 'Lock';
 
-  buttons.append(random, play, restart, lock);
+  const newGame = document.createElement('button');
+  newGame.classList.add('newGame');
+  newGame.textContent = 'New Game';
+
+  buttons.append(random, play, restart, lock, newGame);
 
   container.append(boardWrapper, buttons);
 
-  parent.appendChild(container);
+  bodyEl.appendChild(container);
+
+  buttonEvents(restart, random, play, lock, newGame);
+}
+
+function buttonEvents(restart, random, play, lock, newGame) {
+  // initialize();
+
+  restart.addEventListener('click', () => {
+    reset();
+  });
+
+  //random button
+  random.addEventListener('click', () => {
+    if (gameState.inGame) return;
+
+    placeShapeRandomly(
+      activePlayer.player,
+      activePlayer.berthContainer,
+      activePlayer.boardContainer,
+    );
+
+    const ships = activePlayer.berthContainer.querySelectorAll('.ship');
+
+    ships.forEach((ship) => {
+      ship.classList.add('placed');
+    });
+  });
+
+  //play button
+  play.addEventListener('click', () => {
+    if (gameState.inGame) return;
+
+    playGame();
+  });
+
+  lock.addEventListener('click', () => {
+    LockShips();
+    console.log(gameState.inGame);
+    console.log(gameState.isComputerMode);
+  });
+
+  newGame.addEventListener('click', () => {
+    reset();
+    renderStartPage();
+    console.log(gameState.isComputerMode);
+  });
 }

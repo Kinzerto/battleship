@@ -109,9 +109,8 @@ body {
     background-color: #f5f5f5;
     border-radius: 5px;
     display: grid;
-    grid-template-columns: repeat(11, 40px);
-    grid-template-rows: repeat(11, 40px);
-
+    grid-template-columns: repeat(11, 30px);
+    grid-template-rows: repeat(11, 30px);
     &.active {
       .cell:hover {
         background-color: #7a7870;
@@ -140,6 +139,34 @@ body {
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
       border: 1px solid black;
     }
+
+    &.hidden {
+      div.cell {
+        .ship {
+          &.ship.hide {
+            border: none;
+
+            .hitmark {
+              opacity: 0;
+            }
+
+            &:has(.hitmark.hit) {
+              .hitmark.hit {
+                opacity: 1;
+              }
+            }
+          }
+        }
+
+        &:has(.ship) {
+          border: 1px solid #f5f5f5;
+        }
+
+        &:has(.show) {
+          border: none;
+        }
+      }
+    }
     //boxes
     div {
       border: 1px solid #f5f5f5;
@@ -149,32 +176,25 @@ body {
       justify-content: center;
       align-items: center;
       border-radius: 5px;
-      cursor: pointer;
 
       &.previewCell {
         background-color: rgba(0, 0, 0, 0.48);
       }
 
-      &:has(.ship) {
+      &:has(.show, .ship) {
         border: none;
       }
 
       .ship {
-        // opacity: 0;
         height: 100%;
         width: 100%;
-        border: 1px solid;
-        border: none;
         border-radius: initial;
-
-        &.destroyer {
-          // background-color: red;
-        }
+        background-color: transparent;
 
         &.tailHorizontal {
           border: 1px solid $ship-border-color;
           border-right: none;
-          border-radius: 13px 0 0 13px;
+          border-radius: 8px 0 0 8px;
         }
 
         &.horizontalMiddle {
@@ -202,7 +222,7 @@ body {
         }
 
         &.headVertical {
-          border-radius: 0 0 13px 13px;
+          border-radius: 0 0 8px 8px;
           border: 1px solid $ship-border-color;
           border-top: none;
         }
@@ -215,6 +235,7 @@ body {
           border: 1px solid black;
 
           &.hit {
+            opacity: 1;
             background-color: #d3af37;
             height: 50%;
             width: 50%;
@@ -241,7 +262,7 @@ body {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  width: calc(43px * 10);
+  width: calc(30px * 10);
   justify-content: center;
 
   .containShip {
@@ -249,6 +270,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .enemyShips {
     font-family: 'Jura', sans-serif;
     flex: 0 0 28.333%;
@@ -275,7 +297,7 @@ body {
   }
 
   .ship {
-    height: 40px;
+    height: 30px;
     border: 1px solid;
     border-radius: 10px 20px 20px 10px;
     display: flex;
@@ -296,8 +318,8 @@ body {
     //dots
     div {
       border-radius: 20px;
-      height: 20px;
-      width: 20px;
+      height: 15px;
+      width: 15px;
       background-color: #bdbfca;
       border: 1px solid black;
 
@@ -316,7 +338,7 @@ body {
   }
 
   .carrier {
-    width: calc(40px * 5);
+    width: calc(30px * 5);
     &.vertical {
       width: calc(40px);
       height: calc(40px * 5);
@@ -324,7 +346,7 @@ body {
   }
 
   .battleship {
-    width: calc(40px * 4);
+    width: calc(30px * 4);
     &.vertical {
       width: calc(40px);
       height: calc(40px * 4);
@@ -332,27 +354,15 @@ body {
   }
 
   .destroyer {
-    width: calc(40px * 3);
-    &.vertical {
-      width: calc(40px);
-      height: calc(40px * 3);
-    }
+    width: calc(30px * 3);
   }
 
   .submarine {
-    width: calc(40px * 3);
-    &.vertical {
-      width: calc(40px);
-      height: calc(40px * 3);
-    }
+    width: calc(30px * 3);
   }
 
   .patrolBoat {
-    width: calc(40px * 2);
-    &.vertical {
-      width: calc(40px);
-      height: calc(40px * 2);
-    }
+    width: calc(30px * 2);
   }
 }
 
@@ -361,7 +371,7 @@ body {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  width: calc(43px * 10);
+  width: calc(30px * 10);
   justify-content: center;
 
   .title {
@@ -373,7 +383,7 @@ body {
     width: 100%;
   }
   .ship {
-    height: 40px;
+    height: 30px;
     border: 1px solid;
     border-radius: 10px 20px 20px 10px;
     display: flex;
@@ -394,8 +404,8 @@ body {
     //dots
     div {
       border-radius: 20px;
-      height: 20px;
-      width: 20px;
+      height: 15px;
+      width: 15px;
       background-color: #bdbfca;
       border: 1px solid black;
 
@@ -414,43 +424,23 @@ body {
   }
 
   .carrier {
-    width: calc(40px * 5);
-    &.vertical {
-      width: calc(40px);
-      height: calc(40px * 5);
-    }
+    width: calc(30px * 5);
   }
 
   .battleship {
-    width: calc(40px * 4);
-    &.vertical {
-      width: calc(40px);
-      height: calc(40px * 4);
-    }
+    width: calc(30px * 4);
   }
 
   .destroyer {
-    width: calc(40px * 3);
-    &.vertical {
-      width: calc(40px);
-      height: calc(40px * 3);
-    }
+    width: calc(30px * 3);
   }
 
   .submarine {
-    width: calc(40px * 3);
-    &.vertical {
-      width: calc(40px);
-      height: calc(40px * 3);
-    }
+    width: calc(30px * 3);
   }
 
   .patrolBoat {
-    width: calc(40px * 2);
-    &.vertical {
-      width: calc(40px);
-      height: calc(40px * 2);
-    }
+    width: calc(30px * 2);
   }
 }
 
@@ -499,7 +489,7 @@ body > .ship {
   left: -9999px;
   pointer-events: none;
 
-  height: 40px;
+  height: 30px;
   border: 1px solid;
   border-radius: 10px 20px 20px 10px;
   display: flex;
@@ -520,8 +510,8 @@ body > .ship {
   //dots
   div {
     border-radius: 20px;
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     background-color: #bdbfca;
     border: 1px solid black;
 
@@ -539,42 +529,42 @@ body > .ship {
   }
 
   &.carrier {
-    width: calc(40px * 5);
+    width: calc(30px * 5);
     &.vertical {
-      width: calc(40px);
-      height: calc(40px * 5);
+      width: calc(30px);
+      height: calc(30px * 5);
     }
   }
 
   &.battleship {
-    width: calc(40px * 4);
+    width: calc(30px * 4);
     &.vertical {
-      width: calc(40px);
-      height: calc(40px * 4);
+      width: calc(30px);
+      height: calc(30px * 4);
     }
   }
 
   &.destroyer {
-    width: calc(40px * 3);
+    width: calc(30px * 3);
     &.vertical {
-      width: calc(40px);
-      height: calc(40px * 3);
+      width: calc(30px);
+      height: calc(30px * 3);
     }
   }
 
   &.submarine {
-    width: calc(40px * 3);
+    width: calc(30px * 3);
     &.vertical {
-      width: calc(40px);
-      height: calc(40px * 3);
+      width: calc(30px);
+      height: calc(30px * 3);
     }
   }
 
   &.patrol {
-    width: calc(40px * 2);
+    width: calc(30px * 2);
     &.vertical {
-      width: calc(40px);
-      height: calc(40px * 2);
+      width: calc(30px);
+      height: calc(30px * 2);
     }
   }
 }

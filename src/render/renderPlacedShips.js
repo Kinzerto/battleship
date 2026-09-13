@@ -1,3 +1,5 @@
+let ships = [];
+
 export function renderShip(len, x, y, orientation, shipName, boardContainer) {
   for (let i = 0; i < len; i++) {
     const row = orientation === 'V' ? x + i : x;
@@ -11,6 +13,8 @@ export function renderShip(len, x, y, orientation, shipName, boardContainer) {
     wholeShip.classList.add('ship');
     wholeShip.classList.add(shipName);
     wholeShip.classList.add(`box${i}`);
+    wholeShip.classList.add('hide');
+    ships.push(wholeShip);
     boardElement.appendChild(wholeShip);
 
     if (i === 0 && orientation === 'H') {

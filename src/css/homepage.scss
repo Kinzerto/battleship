@@ -1,0 +1,51 @@
+// @import url('../assets/fonts/monoton/stylesheet.css');
+
+.PageWrapper {
+  min-height: 100vh;
+  min-width: 100%;
+  display: flex;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('../assets/images/background.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    line-height: 0.7;
+    color: whitesmoke;
+    text-align: center;
+    letter-spacing: 20px;
+    font-size: 150px;
+    text-transform: uppercase;
+    font-family: 'Rayone';
+  }
+  h3 {
+    font-family: 'Poppins';
+    letter-spacing: 10px;
+    font-size: 50px;
+    color: rgb(217, 137, 34);
+  }
+
+  button {
+    background-color: transparent;
+    border: 2px solid;
+    padding: 10px 30px;
+    color: whitesmoke;
+    font-size: 20px;
+    border-color: whitesmoke;
+    cursor: pointer;
+
+    &:active {
+      border-color: rgb(217, 137, 34);
+    }
+  }
+}
+
+.start {
+  display: block;
+  margin: 0 auto;
+}

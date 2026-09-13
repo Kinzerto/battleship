@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Rayone';
+  src:
+    url('Rayone-Regular.woff2') format('woff2'),
+    url('Rayone-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
