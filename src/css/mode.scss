@@ -23,6 +23,7 @@
     text-transform: uppercase;
     font-family: 'Rayone';
   }
+
   h3 {
     font-family: 'Poppins';
     letter-spacing: 10px;
@@ -30,23 +31,46 @@
     color: rgb(217, 137, 34);
   }
 
-  button {
-    background-color: transparent;
-    border: 2px solid;
-    padding: 10px 30px;
-    color: whitesmoke;
-    font-size: 20px;
-    border-color: whitesmoke;
-    cursor: pointer;
+  & > .buttons {
+    display: flex;
+    column-gap: 20px;
+    button {
+      background-color: transparent;
+      border: 2px solid;
+      padding: 10px 30px;
+      color: whitesmoke;
+      font-size: 20px;
+      border-color: whitesmoke;
+      cursor: pointer;
 
-    &:active {
-      border-color: rgb(217, 137, 34);
+      &:active {
+        border-color: rgb(217, 137, 34);
+      }
     }
   }
 
-  .buttons {
-    display: flex;
-    gap: 20px;
+  form {
+    min-width: 350px;
+
+    .ButtonWrapper {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+
+      button {
+        background-color: transparent;
+        border: 2px solid;
+        padding: 10px 30px;
+        color: whitesmoke;
+        font-size: 20px;
+        border-color: whitesmoke;
+        cursor: pointer;
+
+        &:active {
+          border-color: rgb(217, 137, 34);
+        }
+      }
+    }
   }
 }
 
@@ -56,6 +80,7 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  align-content: center;
   gap: 20px;
   margin-bottom: 10px;
 }
@@ -71,7 +96,7 @@
 
 .input-text {
   font-family: inherit;
-  width: 300px;
+  width: 100%;
   border: none;
   border-bottom: 2px solid #7f7f7f;
   border-radius: 0 !important;
