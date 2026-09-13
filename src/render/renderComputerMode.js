@@ -1,5 +1,6 @@
 import { initialize, player1, player2 } from '../controllers/players.js';
 import { startGame } from '../controllers/startGame.js';
+import { chooseMode } from './chooseMode.js';
 import { renderGame } from './renderGame.js';
 
 export function renderComputerMode() {
@@ -45,21 +46,25 @@ export function renderComputerMode() {
   groupInput.append(inputGroup1);
 
   // Start button
-  const startWrapper = document.createElement('div');
-  startWrapper.classList.add('start');
+  const ButtonWrapper = document.createElement('div');
+  ButtonWrapper.classList.add('ButtonWrapper');
 
   const startButton = document.createElement('button');
-  startButton.classList.add('start');
+  startButton.classList.add('startMode');
   startButton.type = 'submit';
+
+  const mode = document.createElement('button');
+  mode.textContent = 'MODE';
+  mode.classList.add('changeMode');
 
   const startSpan = document.createElement('span');
   startSpan.textContent = 'START';
 
   startButton.appendChild(startSpan);
-  startWrapper.appendChild(startButton);
+  ButtonWrapper.append(startButton, mode);
 
   // Form structure
-  form.append(groupInput, startWrapper);
+  form.append(groupInput, ButtonWrapper);
 
   // Final structure
   modeWrapper.append(title, subtitle, form);
@@ -70,13 +75,28 @@ export function renderComputerMode() {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const P1 = player1Input.value.trim();
-
-    if (P1.length < 2) {
-      return;
-    }
-    renderGame();
-    initialize(P1);
-    startGame();
+    startFunc(player1Input);
   });
+
+  mode.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    changeMode();
+  });
+}
+
+function startFunc(inp1) {
+  const P1 = inp1.value.trim();
+
+  if (P1.length < 2) {
+    return;
+  }
+
+  renderGame();
+  initialize(P1);
+  startGame();
+}
+
+function changeMode() {
+  chooseMode();
 }
