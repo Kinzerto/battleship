@@ -30,6 +30,8 @@ export function playGame() {
 
     enablePlayerAttacks(player2, P2Element, shipContainer2);
 
+    shipContainer2.classList.add('isCom');
+
     if (gameState.turn === 'P2') {
       computer(P1Element);
     }
@@ -58,4 +60,6 @@ export function playGame() {
 
   showEnemyShipsName(player1, shipContainer1);
   showEnemyShipsName(player2, shipContainer2);
+
+  shipContainer2.classList.remove('isCom');
 }
