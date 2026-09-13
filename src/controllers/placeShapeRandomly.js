@@ -36,7 +36,10 @@ export function placeShapeRandomly(player, shipBerth, boardContainer) {
 
       orientation =
         orientations[Math.floor(Math.random() * orientations.length)];
-      placed = player.gameboard.placeShip(ship, x, y, orientation);
+
+      if (player.gameboard.canPlaceWithSpacing(ship, x, y, orientation)) {
+        placed = player.gameboard.placeShip(ship, x, y, orientation);
+      }
     }
 
     if (gameState.isComputerMode && player.name !== 'Computer') {
