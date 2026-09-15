@@ -13,10 +13,10 @@ import {
   shipContainer2,
   activePlayer,
 } from './players.js';
-import { renderStartPage } from '../render/renderStartPage.js';
 
 export function reset() {
   gameState.inGame = false;
+  gameState.turn = 'P1';
   status.textContent = 'Place all ships';
 
   player1.resetGameboard();
@@ -25,23 +25,21 @@ export function reset() {
   player1.resetShipDamage();
   player2.resetShipDamage();
 
-  P1Element.replaceChildren();
-  P2Element.replaceChildren();
-
   renderBoard(player1, P1Element);
   renderBoard(player2, P2Element);
 
   manual(player1, shipContainer1);
-  manual(player1, shipContainer2);
+  manual(player2, shipContainer2);
 
   //reset active
-  P1Element.classList.remove('active');
+  P1Element.classList.add('active');
   P2Element.classList.remove('active');
 
-  //add player 1 active to place its Ships
-  P1Element.classList.add('active');
+  P1Element.classList.remove('hidden');
+  P2Element.classList.remove('hidden');
 
   shipContainer1.classList.add('active');
+  shipContainer2.classList.remove('active');
 
   activePlayer.boardContainer = P1Element;
   activePlayer.player = player1;

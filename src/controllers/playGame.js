@@ -20,6 +20,11 @@ import { checkPLayer1, checkPLayer2 } from './checkDeployedShips.js';
 export function playGame() {
   //if Computer Mode
   if (gameState.isComputerMode) {
+    if (!checkPLayer1()) {
+      status.textContent = 'Place all ships';
+      return;
+    }
+
     gameState.inGame = true;
 
     placeShapeRandomly(player2, shipContainer2, P2Element);
@@ -30,7 +35,7 @@ export function playGame() {
 
     enablePlayerAttacks(player2, P2Element, shipContainer2);
 
-    shipContainer2.classList.add('isCom');
+    // shipContainer2.classList.add('isCom');
 
     if (gameState.turn === 'P2') {
       computer(P1Element);
@@ -38,6 +43,7 @@ export function playGame() {
 
     activeBoard();
     whosTurn(status);
+    showEnemyShipsName(player1, shipContainer1);
     showEnemyShipsName(player2, shipContainer2);
 
     return;

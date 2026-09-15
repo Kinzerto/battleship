@@ -1,13 +1,9 @@
-import {
-  addBoardListeners,
-  LockShips,
-  manual,
-} from '../controllers/manualPlaceShip.js';
+import { LockShips } from '../controllers/lockShips.js';
+import { addBoardListeners, manual } from '../controllers/manualPlaceShip.js';
 import { placeShapeRandomly } from '../controllers/placeShapeRandomly.js';
 import { activePlayer, initialize, player1 } from '../controllers/players.js';
 import { playGame } from '../controllers/playGame.js';
 import { reset } from '../controllers/restart.js';
-import { startGame } from '../controllers/startGame.js';
 import { gameState } from '../state/state.js';
 import { renderStartPage } from './renderStartPage.js';
 
@@ -71,10 +67,6 @@ export function renderGame() {
   const buttons = document.createElement('div');
   buttons.classList.add('buttons');
 
-  const random = document.createElement('button');
-  random.classList.add('random');
-  random.textContent = 'Random';
-
   const play = document.createElement('button');
   play.classList.add('play');
   play.textContent = 'Play';
@@ -83,45 +75,22 @@ export function renderGame() {
   restart.classList.add('restart');
   restart.textContent = 'Restart';
 
-  const lock = document.createElement('button');
-  lock.classList.add('lock');
-  lock.textContent = 'Lock';
-
   const newGame = document.createElement('button');
   newGame.classList.add('newGame');
   newGame.textContent = 'New Game';
 
-  buttons.append(random, play, restart, lock, newGame);
+  buttons.append(newGame, play, restart);
 
   container.append(boardWrapper, buttons);
 
   bodyEl.appendChild(container);
 
-  buttonEvents(restart, random, play, lock, newGame);
+  buttonEvents(restart, play, newGame);
 }
 
-function buttonEvents(restart, random, play, lock, newGame) {
-  // initialize();
-
+function buttonEvents(restart, play, newGame) {
   restart.addEventListener('click', () => {
     reset();
-  });
-
-  //random button
-  random.addEventListener('click', () => {
-    if (gameState.inGame) return;
-
-    placeShapeRandomly(
-      activePlayer.player,
-      activePlayer.berthContainer,
-      activePlayer.boardContainer,
-    );
-
-    const ships = activePlayer.berthContainer.querySelectorAll('.ship');
-
-    ships.forEach((ship) => {
-      ship.classList.add('placed');
-    });
   });
 
   //play button
@@ -129,12 +98,6 @@ function buttonEvents(restart, random, play, lock, newGame) {
     if (gameState.inGame) return;
 
     playGame();
-  });
-
-  lock.addEventListener('click', () => {
-    LockShips();
-    console.log(gameState.inGame);
-    console.log(gameState.isComputerMode);
   });
 
   newGame.addEventListener('click', () => {

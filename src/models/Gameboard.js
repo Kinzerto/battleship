@@ -1,10 +1,10 @@
 export class Gameboard {
   constructor() {
     this.matrix = Array.from({ length: 10 }, () => Array(10).fill(null));
-    this.coordinates = new Set();
+    this.hit = new Set();
+    this.missed = new Set();
     this.isGameOver = false;
     this.army = [];
-    this.missedAttacks = [];
   }
 
   placeShip(ship, x, y, orientation) {
@@ -84,7 +84,7 @@ export class Gameboard {
 
   // RECIEVING ATTACK IN BOARD
   receiveAttack(x, y) {
-    if (x > 9 || y > 9 || x < 0 || y < 0) return;
+    if (x > 9 || y > 9 || x < 0 || y < 0) return null;
 
     // IF this.isGameOver IS TRUE CANCEL THE OPERATION BELOW
     if (this.isGameOver) return;
@@ -92,7 +92,8 @@ export class Gameboard {
     //TRACKS ATTACK MARKS ON THE BOARD TO PREVENT ATTACKING TWICE OR MORE ON THE SAME COORDINATES
     const tmpCoordinates = `${x},${y}`;
 
-    if (this.coordinates.has(tmpCoordinates)) return null;
+    if (this.hit.has(tmpCoordinates) || this.missed.has(tmpCoordinates))
+      return null;
 
     let shot = this.matrix[x][y];
 
@@ -106,12 +107,11 @@ export class Gameboard {
         this.isGameOver = true;
       }
 
-      this.coordinates.add(tmpCoordinates);
-      return ['hit', shot];
+      this.hit.add(tmpCoordinates);
+      return { hit: 'hit', shot };
     }
 
-    this.missedAttacks.push([+x, +y]);
-    this.coordinates.add(tmpCoordinates);
+    this.missed.add(`${x},${y}`);
 
     return 'miss';
   }

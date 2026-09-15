@@ -1,10 +1,12 @@
 import { renderBoard } from '../render/render-board.js';
 import { renderShip } from '../render/renderPlacedShips.js';
 import { gameState } from '../state/state.js';
+import { checkShipPlaced } from './manualPlaceShip.js';
 import { status } from './players.js';
 
 //if random is clicked twice or more resets the board
 function randomAgain(player, boardContainer) {
+  boardContainer.classList.remove('hidden');
   boardContainer.replaceChildren();
   player.resetGameboard();
 
@@ -51,12 +53,14 @@ export function placeShapeRandomly(player, shipBerth, boardContainer) {
     if (!gameState.isComputerMode) {
       renderShip(ship.length, x, y, orientation, ship.name, boardContainer);
     }
-  });
 
-  const ships = shipBerth.querySelectorAll(`.ship`);
+    const statusShip = shipBerth.querySelector(`.${ship.name}`);
+    statusShip.classList.add('placed');
+    statusShip.draggable = false;
+    statusShip.classList.add('draggableOff');
 
-  ships.forEach((ship) => {
-    ship.draggable = false;
-    ship.classList.add('draggableOff');
+    const direction = orientation === 'H' ? '\u2192' : '\u2191';
+    const nameStatus = shipBerth.querySelector(`.${ship.name} + .shipName`);
+    nameStatus.textContent = `${ship.name} (${direction})`;
   });
 }

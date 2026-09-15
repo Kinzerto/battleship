@@ -1,9 +1,9 @@
 import { checkWinner } from './checkWinner.js';
 import { changeTurn } from './turn.js';
-import { player1, shipContainer1 } from './players.js';
+import { shipContainer1 } from './players.js';
 import { gameState } from '../state/state.js';
 
-export function computer(boardContainer) {
+export function computer(boardContainer, player) {
   if (checkWinner()) return;
   if (gameState.inGame === false) return;
 
@@ -12,8 +12,7 @@ export function computer(boardContainer) {
   do {
     row = Math.floor(Math.random() * 10);
     column = Math.floor(Math.random() * 10);
-
-    result = player1.gameboard.receiveAttack(row, column);
+    result = player.gameboard.receiveAttack(row, column);
   } while (result === null);
 
   //board squires with or without a boat
@@ -21,8 +20,8 @@ export function computer(boardContainer) {
     `[data-row="${row}"][data-column="${column}"]`,
   );
 
-  if (result[0] === 'hit') {
-    shipGotHit(box);
+  if (result.hit === 'hit') {
+    shipGotHit(box, result.shot);
   } else if (result === 'miss') {
     shotMissed(box);
   } else {
@@ -35,21 +34,14 @@ export function computer(boardContainer) {
 }
 
 //if the shot hit
-function shipGotHit(damagedShip) {
+function shipGotHit(damagedShip, ship) {
   const hitmark = damagedShip.querySelector('.hitmark');
-  const damageShip = damagedShip.querySelector('.ship');
-
   hitmark.classList.add('hit');
 
-  //on berth
-  const shipType = shipContainer1.querySelector(`.${damageShip.classList[1]}`);
-
-  //in which length on ship is hit
-  const damageLocation = damageShip.classList[2];
-
-  const displayDamage = shipType.querySelector(`.${damageLocation}`);
-
-  displayDamage.classList.add('hit');
+  if (ship.isSunk()) {
+    const sunkShip = shipContainer1.querySelector(`.${ship.name}`);
+    sunkShip.classList.add('sunked');
+  }
 }
 
 //if the shot hit

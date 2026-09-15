@@ -3,46 +3,18 @@ import {
   player1,
   P1Element,
   player2,
-  P2Element,
   shipContainer1,
   shipContainer2,
   activePlayer,
 } from './players.js';
 import { gameState } from '../state/state.js';
-import { status } from './players.js';
+import { LockShips } from './lockShips.js';
+import { resetShips } from './resetPlacedShip.js';
+import { placeShapeRandomly } from './placeShapeRandomly.js';
 
 let pickedShip;
 let targetCells = [];
 let targetBox;
-
-export function LockShips() {
-  if (player1.gameboard.army.length < 5) return;
-  if (gameState.isComputerMode) return;
-  if (gameState.inGame) return;
-  if (activePlayer.player.name === player2.name) return;
-
-  removeBoardListeners();
-
-  activePlayer.boardContainer.classList.remove('active');
-  activePlayer.berthContainer.classList.remove('active');
-
-  console.log(activePlayer);
-
-  if (activePlayer.boardContainer === P1Element) {
-    activePlayer.boardContainer = P2Element;
-    activePlayer.player = player2;
-    activePlayer.berthContainer = shipContainer2;
-  } else {
-    activePlayer.boardContainer = P1Element;
-    activePlayer.player = player1;
-    activePlayer.berthContainer = shipContainer1;
-  }
-
-  activePlayer.boardContainer.classList.add('active');
-  activePlayer.berthContainer.classList.add('active');
-
-  addBoardListeners();
-}
 
 //clears preview on board
 function clearPreview() {
@@ -64,7 +36,9 @@ function dblclick(shipEl) {
     container.dataset.orientation =
       container.dataset.orientation === 'H' ? 'V' : 'H';
 
-    shipName.textContent = `${container.classList[1]} (${container.dataset.orientation})`;
+    const direction =
+      container.dataset.orientation === 'H' ? '\u2192' : '\u2191';
+    shipName.textContent = `${container.classList[1]} (${direction})`;
   };
 
   container.addEventListener('contextmenu', container.dblClickHandler);
@@ -105,7 +79,7 @@ export function manual(player, shipBerth) {
 
     //Name Of the ship
     const shipName = document.createElement('div');
-    shipName.textContent = `${ship.name} (${(shipEl.dataset.orientation = 'H')})`;
+    shipName.textContent = `${ship.name} (${'\u2192'})`;
     shipName.classList.add('shipName');
     shipWrapper.classList.add('shipWrapper');
 
@@ -141,7 +115,7 @@ export function manual(player, shipBerth) {
       clonedDiv.dataset.isdrag = 'true';
     });
 
-    shipEl.addEventListener('dragend', (e) => {
+    shipEl.addEventListener('dragend', () => {
       shipEl.dataset.isdrag = 'false';
 
       // Clean up the ghost now that the drag operation is fully finished
@@ -151,6 +125,8 @@ export function manual(player, shipBerth) {
       }
     });
   });
+
+  checkShipPlaced(shipBerth);
 }
 
 function dragoverHandler(e) {
@@ -257,13 +233,12 @@ function dropHandler(e) {
   el.classList.add('placed');
 
   // checkShips();
-  checkShipPlaced();
+
   console.log(player1.gameboard.matrix);
   console.log(player2.gameboard.matrix);
 }
 
 export function addBoardListeners() {
-  console.log(activePlayer);
   activePlayer.boardContainer.addEventListener('dragover', dragoverHandler);
   activePlayer.boardContainer.addEventListener('dragleave', dragleaveHandler);
   activePlayer.boardContainer.addEventListener('drop', dropHandler);
@@ -278,7 +253,7 @@ export function addBoardListeners() {
   });
 }
 
-function removeBoardListeners() {
+export function removeBoardListeners() {
   activePlayer.boardContainer.removeEventListener('dragover', dragoverHandler);
   activePlayer.boardContainer.removeEventListener(
     'dragleave',
@@ -297,14 +272,44 @@ function removeBoardListeners() {
   });
 }
 
-function checkShipPlaced() {
-  if (activePlayer.boardContainer === P2Element) return;
-  if (activePlayer.player.gameboard.army.length < 5) return;
-  const lockButton = document.createElement('button');
-  lockButton.textContent = 'Lock';
-  activePlayer.berthContainer.appendChild(lockButton);
+export function checkShipPlaced(parent) {
+  const option = document.createElement('div');
+  option.classList.add('option');
+  option.replaceChildren();
 
-  lockButton.addEventListener('click', () => {
-    LockShips();
+  if (parent.className === 'yard' && gameState.isComputerMode) {
+    option.classList.add('hideOption');
+  }
+  const random = document.createElement('button');
+  random.textContent = 'Random';
+  option.append(random);
+
+  if (!gameState.isComputerMode) {
+    const lock = document.createElement('button');
+    lock.textContent = 'Lock';
+
+    lock.addEventListener('click', () => {
+      LockShips();
+    });
+
+    option.append(lock);
+  }
+
+  const reset = document.createElement('button');
+  reset.textContent = 'Reset';
+  option.append(reset);
+
+  parent.appendChild(option);
+
+  reset.addEventListener('click', () => {
+    resetShips();
+  });
+
+  random.addEventListener('click', () => {
+    placeShapeRandomly(
+      activePlayer.player,
+      activePlayer.berthContainer,
+      activePlayer.boardContainer,
+    );
   });
 }

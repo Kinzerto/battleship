@@ -161,7 +161,6 @@ function showError(input, errorEl, message) {
 }
 
 function clearError(input, errorEl) {
-  console.log(input);
   errorEl.textContent = '';
   input.classList.remove('input-error-state');
   input.setAttribute('aria-invalid', 'false');

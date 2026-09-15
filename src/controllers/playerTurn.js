@@ -2,7 +2,7 @@ import { gameState } from '../state/state.js';
 import { changeTurn } from './turn.js';
 import { checkWinner } from './checkWinner.js';
 import { computer } from './computer.js';
-import { P1Element } from './players.js';
+import { P1Element, player1 } from './players.js';
 
 export function enablePlayerAttacks(player, playerElement, shipBerth) {
   const cells = playerElement.querySelectorAll('.cell');
@@ -22,12 +22,11 @@ export function enablePlayerAttacks(player, playerElement, shipBerth) {
 
       if (result === null) return;
 
-      if (result[0] === 'hit') {
+      if (result.hit === 'hit') {
         const hitMark = cell.querySelector('.ship').querySelector('.hitmark');
         hitMark.classList.add('hit');
 
-        const ship = result[1];
-
+        const ship = result.shot;
         //check if sunked on berth
         if (ship.isSunk()) {
           const sunkShip = shipBerth.querySelector(`.${ship.name}`);
@@ -54,10 +53,11 @@ export function enablePlayerAttacks(player, playerElement, shipBerth) {
       changeTurn();
 
       //if Computer mode
+
       if (gameState.isComputerMode) {
-        setTimeout(() => {
-          computer(P1Element);
-        }, 1000);
+        computer(P1Element, player1);
+
+        setTimeout(() => {}, 1000);
       }
     });
   }

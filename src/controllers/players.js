@@ -10,7 +10,6 @@ export function initialize(play1, play2) {
   P1Element = document.querySelector('.player1');
   P2Element = document.querySelector('.player2');
 
-  console.log(play1);
   player1 = new Player(play1);
   player2 = new Player(play2);
 

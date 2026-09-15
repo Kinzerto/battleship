@@ -12,11 +12,12 @@ body {
 }
 .container {
   min-height: 100vh;
-  max-width: 1200px;
+  max-width: 1440px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   // position: relative;
 
   .buttons {
@@ -111,11 +112,12 @@ body {
     display: grid;
     grid-template-columns: repeat(11, 30px);
     grid-template-rows: repeat(11, 30px);
-    &.active {
-      .cell:hover {
-        background-color: #7a7870;
-      }
-    }
+
+    // &.active {
+    //   .cell:hover {
+    //     background-color: #7a7870;
+    //   }
+    // }
 
     .corner {
       color: rgba(0, 0, 0, 0.578);
@@ -142,6 +144,11 @@ body {
 
     &.hidden {
       div.cell {
+        &:hover {
+          cursor: crosshair;
+          background-color: #7a7870;
+        }
+
         .ship {
           &.ship.hide {
             border: none;
@@ -264,26 +271,67 @@ body {
 .yard {
   display: flex;
   flex-wrap: wrap;
-  width: calc(30px * 10);
-  justify-content: center;
+  justify-content: space-around;
   width: calc((30px * 11) + 20px);
-  column-gap: 20px;
+
+  .option {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    width: 100%;
+    gap: 20px;
+
+    &.hideOption {
+      opacity: 0;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      opacity: 0.7;
+      font-family: 'Jura', sans-serif;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+    }
+  }
 
   .shipWrapper {
-    text-align: center;
     font-size: smaller;
+    padding: 5px;
     font-family: 'Jura', sans-serif;
     text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    // border: 1px solid green;
+    padding-bottom: 20px;
+
+    .shipName {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      text-wrap: nowrap;
+      transform: translateX(-50%);
+    }
   }
 
   .ship {
     height: 30px;
-    border: 1px solid;
+    border: 1px solid rgba(0, 0, 0, 0.646);
     border-radius: 10px 20px 20px 10px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     cursor: pointer;
+
+    &:active {
+      background-color: #807e7a;
+    }
 
     &.vertical {
       flex-direction: column;
@@ -333,7 +381,7 @@ body {
     width: calc(30px * 3);
   }
 
-  .patrolBoat {
+  .patrol {
     width: calc(30px * 2);
   }
 
@@ -356,8 +404,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+
     justify-content: center;
-    row-gap: 20px;
   }
 
   .enemyShips {
@@ -371,19 +419,6 @@ body {
     &.sunked {
       color: #d3af37;
       text-decoration: line-through;
-    }
-  }
-
-  &.isCom {
-    position: relative;
-
-    .enemyShips {
-      margin-top: -35px;
-
-      &:nth-child(4),
-      &:nth-child(5) {
-        margin-top: -25px;
-      }
     }
   }
 }

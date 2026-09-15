@@ -9,9 +9,15 @@ import { renderStartPage } from './render/renderStartPage.js';
 import { renderPlayerMode } from './render/renderTwoPlayerMode.js';
 import { renderComputerMode } from './render/renderComputerMode.js';
 import { initialize } from './controllers/players.js';
+import { startGame } from './controllers/startGame.js';
+import { checkShipPlaced } from './controllers/manualPlaceShip.js';
 
 // renderPlayerMode();
-renderStartPage();
+// renderStartPage();
+
+renderGame();
+initialize('P1');
+startGame();
 // renderComputerMode();
 // const vsComputer = document.querySelector('.vsComputer');
 // const vsPlayer = document.querySelector('.vsPlayer');
