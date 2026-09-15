@@ -65,7 +65,7 @@ export function renderComputerMode() {
   startButton.type = 'submit';
 
   const mode = document.createElement('button');
-  mode.textContent = 'MODE';
+  mode.textContent = '⏴ MODE';
   mode.classList.add('changeMode');
 
   const startSpan = document.createElement('span');

@@ -86,7 +86,7 @@ export function renderPlayerMode() {
   startButton.type = 'submit';
 
   const mode = document.createElement('button');
-  mode.textContent = 'MODE';
+  mode.textContent = '⏴ MODE';
   mode.classList.add('changeMode');
 
   const startSpan = document.createElement('span');
