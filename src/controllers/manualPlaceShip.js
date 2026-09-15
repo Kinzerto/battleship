@@ -29,12 +29,17 @@ function clearPreview() {
 function dblclick(shipEl) {
   const container = shipEl.querySelector('.ship');
   const shipName = shipEl.querySelector('.shipName');
-
   container.dblClickHandler = (e) => {
     e.preventDefault();
 
+    if (container.classList.contains('placed')) {
+      return;
+    }
+
     container.dataset.orientation =
       container.dataset.orientation === 'H' ? 'V' : 'H';
+
+    console.log(container);
 
     const direction =
       container.dataset.orientation === 'H' ? '\u2192' : '\u2191';
