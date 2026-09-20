@@ -7,17 +7,22 @@ import {
 } from './players.js';
 
 export function activeBoard() {
-  if (gameState.turn === 'P1') {
-    P2Element.classList.add('active');
-    P1Element.classList.remove('active');
+  const isP1Turn = gameState.turn === 'P1';
 
-    shipContainer2.classList.add('active');
-    shipContainer1.classList.remove('active');
-  } else if (gameState.turn === 'P2') {
-    P1Element.classList.add('active');
-    P2Element.classList.remove('active');
+  const targetBoard = isP1Turn ? P2Element : P1Element;
+  const otherBoard = isP1Turn ? P1Element : P2Element;
 
-    shipContainer1.classList.add('active');
-    shipContainer2.classList.remove('active');
+  const targetShips = isP1Turn ? shipContainer2 : shipContainer1;
+  const otherShips = isP1Turn ? shipContainer1 : shipContainer2;
+
+  targetBoard.classList.add('active');
+  otherBoard.classList.remove('active');
+
+  targetShips.classList.add('active');
+  otherShips.classList.remove('active');
+
+  if (!gameState.isComputerMode) {
+    targetBoard.classList.remove('hidden');
+    otherBoard.classList.add('hidden');
   }
 }

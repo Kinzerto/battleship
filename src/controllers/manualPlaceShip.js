@@ -39,8 +39,6 @@ function dblclick(shipEl) {
     container.dataset.orientation =
       container.dataset.orientation === 'H' ? 'V' : 'H';
 
-    console.log(container);
-
     const direction =
       container.dataset.orientation === 'H' ? '\u2192' : '\u2191';
     shipName.textContent = `${container.classList[1]} (${direction})`;
