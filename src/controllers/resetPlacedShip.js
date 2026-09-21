@@ -1,5 +1,5 @@
 import { renderBoard } from '../render/render-board.js';
-import { manual } from './manualPlaceShip.js';
+import { addBoardListeners, manual } from './manualPlaceShip.js';
 import { activePlayer, status } from './players.js';
 
 export function resetShips() {
@@ -11,4 +11,6 @@ export function resetShips() {
   manual(activePlayer.player, activePlayer.berthContainer);
 
   status.textContent = `Drag a ship onto the board. Right-click a ship to rotate.`;
+
+  addBoardListeners();
 }
