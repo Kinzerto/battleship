@@ -1,7 +1,6 @@
 import { renderBoard } from '../render/render-board.js';
 import { renderShip } from '../render/renderPlacedShips.js';
 import { gameState } from '../state/state.js';
-import { checkShipPlaced } from './manualPlaceShip.js';
 import { status } from './players.js';
 
 //if random is clicked twice or more resets the board
@@ -25,7 +24,11 @@ export function placeShapeRandomly(player, shipBerth, boardContainer) {
 
   if (player.gameboard.army.length >= player.ships.length) return;
 
-  status.textContent = 'PRESS PLAY TO START';
+  if (gameState.isComputerMode) {
+    status.textContent = 'PRESS "PLAY" TO START';
+  } else {
+    status.textContent = 'Press "Deploy" to lock PLaced ships';
+  }
 
   //place on board based on random
   player.ships.forEach((ship) => {

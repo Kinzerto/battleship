@@ -13,11 +13,13 @@ import {
   shipContainer2,
   activePlayer,
 } from './players.js';
+import { resetHunt } from './computer.js';
 
 export function reset() {
   gameState.inGame = false;
   gameState.turn = 'P1';
-  status.textContent = 'Place all ships';
+  status.textContent =
+    'Drag a ship onto the board. Right-click a ship to rotate.';
 
   player1.resetGameboard();
   player2.resetGameboard();
@@ -46,4 +48,6 @@ export function reset() {
   activePlayer.berthContainer = shipContainer1;
 
   addBoardListeners();
+
+  resetHunt();
 }

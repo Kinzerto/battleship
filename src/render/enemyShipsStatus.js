@@ -6,7 +6,7 @@ export function showEnemyShipsName(player, shipBerth) {
 
   const ships = player.ships;
   const header = document.createElement('div');
-  header.textContent = `${player.name}'s Fleet`;
+  header.textContent = `${player.name} Fleet`;
   header.classList.add('title');
 
   shipBerth.appendChild(header);

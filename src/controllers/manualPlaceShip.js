@@ -1,16 +1,14 @@
 import { renderShip } from '../render/renderPlacedShips.js';
 import {
-  player1,
   P1Element,
-  player2,
   shipContainer1,
   shipContainer2,
   activePlayer,
+  status,
 } from './players.js';
 import { gameState } from '../state/state.js';
-import { LockShips } from './lockShips.js';
-import { resetShips } from './resetPlacedShip.js';
-import { placeShapeRandomly } from './placeShapeRandomly.js';
+import { checkIfAllDeployed } from './checkDeployedShips.js';
+import { addController } from './addController.js';
 
 let pickedShip;
 let targetCells = [];
@@ -54,7 +52,7 @@ export function manual(player, shipBerth) {
   shipBerth.replaceChildren();
 
   const header = document.createElement('div');
-  header.textContent = `${player.name}s Fleet`;
+  header.textContent = `${player.name} Fleet`;
   header.classList.add('title');
   shipBerth.appendChild(header);
 
@@ -129,7 +127,7 @@ export function manual(player, shipBerth) {
     });
   });
 
-  checkShipPlaced(shipBerth);
+  addController(shipBerth);
 }
 
 function dragoverHandler(e) {
@@ -203,7 +201,6 @@ function dropHandler(e) {
     ` [data-ship-id="${data}"]`,
   );
 
-  console.log(el);
   if (!el) return;
 
   const orientation = el.dataset.orientation;
@@ -235,10 +232,12 @@ function dropHandler(e) {
   el.classList.add('draggableOff');
   el.classList.add('placed');
 
-  // checkShips();
-
-  console.log(player1.gameboard.matrix);
-  console.log(player2.gameboard.matrix);
+  if (checkIfAllDeployed(activePlayer.player) && !gameState.isComputerMode) {
+    status.textContent = `Press "Deploy" to lock PLaced ships`;
+  }
+  if (checkIfAllDeployed(activePlayer.player) && gameState.isComputerMode) {
+    status.textContent = `Press "play" to start`;
+  }
 }
 
 export function addBoardListeners() {
@@ -270,49 +269,6 @@ export function removeBoardListeners() {
   const ships = parent.querySelectorAll('.ship');
 
   ships.forEach((shp) => {
-    console.log(shp);
     shp.draggable = true;
-  });
-}
-
-export function checkShipPlaced(parent) {
-  const option = document.createElement('div');
-  option.classList.add('option');
-  option.replaceChildren();
-
-  if (parent.className === 'yard' && gameState.isComputerMode) {
-    option.classList.add('hideOption');
-  }
-  const random = document.createElement('button');
-  random.textContent = 'Random';
-  option.append(random);
-
-  if (!gameState.isComputerMode) {
-    const lock = document.createElement('button');
-    lock.textContent = 'Lock';
-
-    lock.addEventListener('click', () => {
-      LockShips();
-    });
-
-    option.append(lock);
-  }
-
-  const reset = document.createElement('button');
-  reset.textContent = 'Reset';
-  option.append(reset);
-
-  parent.appendChild(option);
-
-  reset.addEventListener('click', () => {
-    resetShips();
-  });
-
-  random.addEventListener('click', () => {
-    placeShapeRandomly(
-      activePlayer.player,
-      activePlayer.berthContainer,
-      activePlayer.boardContainer,
-    );
   });
 }

@@ -1,4 +1,6 @@
-import { initialize, player1, player2 } from '../controllers/players.js';
+import '../css/mode.scss';
+
+import { initialize } from '../controllers/players.js';
 import { startGame } from '../controllers/startGame.js';
 import { chooseMode } from './chooseMode.js';
 import { renderGame } from './renderGame.js';
@@ -43,7 +45,7 @@ export function renderPlayerMode() {
   const player1Label = document.createElement('label');
   player1Label.classList.add('input-text-label');
   player1Label.htmlFor = 'player1';
-  player1Label.textContent = 'Player Name';
+  player1Label.textContent = 'Player 1 Fleet';
 
   const player1Error = document.createElement('div');
   player1Error.classList.add('input-error');
@@ -67,7 +69,7 @@ export function renderPlayerMode() {
   const player2Label = document.createElement('label');
   player2Label.classList.add('input-text-label');
   player2Label.htmlFor = 'player2';
-  player2Label.textContent = 'Player 2 Name';
+  player2Label.textContent = 'Player 2 Fleet';
 
   const player2Error = document.createElement('div');
   player2Error.classList.add('input-error');

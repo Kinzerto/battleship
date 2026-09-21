@@ -1,6 +1,5 @@
 import { gameState } from '../state/state.js';
 import { renderComputerMode } from './renderComputerMode.js';
-import { renderGame } from './renderGame.js';
 import { renderPlayerMode } from './renderTwoPlayerMode.js';
 
 export function chooseMode() {

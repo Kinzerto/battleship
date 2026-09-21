@@ -52,12 +52,10 @@ export function enablePlayerAttacks(player, playerElement, shipBerth) {
       //changing turn
       changeTurn();
 
-      //if Computer mode
-
       if (gameState.isComputerMode) {
-        computer(P1Element, player1);
-
-        setTimeout(() => {}, 1000);
+        setTimeout(() => {
+          computer(P1Element, player1);
+        }, 1000);
       }
     });
   }

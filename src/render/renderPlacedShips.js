@@ -1,5 +1,3 @@
-import { checkShipPlaced } from '../controllers/manualPlaceShip.js';
-
 let ships = [];
 
 export function renderShip(len, x, y, orientation, shipName, boardContainer) {

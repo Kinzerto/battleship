@@ -85,11 +85,8 @@ export class Gameboard {
   // RECIEVING ATTACK IN BOARD
   receiveAttack(x, y) {
     if (x > 9 || y > 9 || x < 0 || y < 0) return null;
-
-    // IF this.isGameOver IS TRUE CANCEL THE OPERATION BELOW
     if (this.isGameOver) return;
 
-    //TRACKS ATTACK MARKS ON THE BOARD TO PREVENT ATTACKING TWICE OR MORE ON THE SAME COORDINATES
     const tmpCoordinates = `${x},${y}`;
 
     if (this.hit.has(tmpCoordinates) || this.missed.has(tmpCoordinates))
@@ -97,12 +94,9 @@ export class Gameboard {
 
     let shot = this.matrix[x][y];
 
-    //IF THE SHOT DIRECTED IN A SHIP OBJECT RUN THE CODE BELLOW
     if (shot) {
-      // +1 DAMAGE ON SHIP
       shot.hit();
 
-      // IF ALL THE SHIP SUNKED DISPLAY GAMEOVER AND CHANGE this.isGameOver to TRUE;
       if (this.army.every((ship) => ship.isSunk() === true)) {
         this.isGameOver = true;
       }

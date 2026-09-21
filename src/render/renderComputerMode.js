@@ -1,4 +1,6 @@
-import { initialize, player1, player2 } from '../controllers/players.js';
+import '../css/mode.scss';
+
+import { initialize } from '../controllers/players.js';
 import { startGame } from '../controllers/startGame.js';
 import { chooseMode } from './chooseMode.js';
 import { renderGame } from './renderGame.js';
@@ -48,9 +50,6 @@ export function renderComputerMode() {
   // Error message element
   const player1Error = document.createElement('div');
   player1Error.classList.add('input-error');
-  // player1Error.id = 'player1-error';
-  // player1Error.setAttribute('role', 'alert');
-  // player1Error.style.display = 'none';
 
   inputGroup1.append(player1Input, player1Label, player1Error);
 

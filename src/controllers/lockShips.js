@@ -8,14 +8,29 @@ import {
   player2,
   shipContainer1,
   shipContainer2,
+  status,
 } from './players.js';
 
 export function LockShips() {
-  if (activePlayer.player.gameboard.army.length < 5) return;
+  if (activePlayer.player.gameboard.army.length < 5) {
+    status.textContent = 'Place And Deploy all Ships';
+    return;
+  }
   if (gameState.isComputerMode) return;
   if (gameState.inGame) return;
 
   removeBoardListeners();
+
+  //to lock ship
+  activePlayer.player.lockShips();
+  if (!player2.lock) {
+    status.textContent = `Drag a ship onto the board. Right-click a ship to rotate.`;
+  }
+
+  if (player2.lock && player1.lock) {
+    status.textContent = `Press "Play" to Start `;
+  }
+
   activePlayer.boardContainer.classList.add('hidden');
 
   if (activePlayer.player.name === player2.name) return;

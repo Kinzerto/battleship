@@ -6,10 +6,12 @@ export class Player {
     this.name = name;
     this.gameboard = new Gameboard();
     this.ships = this.createShips();
+    this.lock = false;
   }
 
   resetGameboard() {
     this.gameboard = new Gameboard();
+    this.lock = false;
   }
 
   createShips() {
@@ -20,6 +22,10 @@ export class Player {
       new Ship(3, 'submarine'),
       new Ship(2, 'patrol'),
     ];
+  }
+
+  lockShips() {
+    this.lock = true;
   }
 
   resetShipDamage() {

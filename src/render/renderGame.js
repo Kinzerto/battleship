@@ -1,7 +1,3 @@
-import { LockShips } from '../controllers/lockShips.js';
-import { addBoardListeners, manual } from '../controllers/manualPlaceShip.js';
-import { placeShapeRandomly } from '../controllers/placeShapeRandomly.js';
-import { activePlayer, initialize, player1 } from '../controllers/players.js';
 import { playGame } from '../controllers/playGame.js';
 import { reset } from '../controllers/restart.js';
 import { gameState } from '../state/state.js';
@@ -19,7 +15,8 @@ export function renderGame() {
   boardWrapper.classList.add('board-wrapper');
 
   const status = document.createElement('div');
-  status.textContent = 'Place Ships';
+  status.textContent =
+    'Drag a ship onto the board. Right-click a ship to rotate.';
   status.classList.add('status');
 
   const board1 = document.createElement('div');
@@ -103,6 +100,5 @@ function buttonEvents(restart, play, newGame) {
   newGame.addEventListener('click', () => {
     reset();
     renderStartPage();
-    console.log(gameState.isComputerMode);
   });
 }

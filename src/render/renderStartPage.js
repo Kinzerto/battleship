@@ -1,3 +1,5 @@
+import '../css/homepage.scss';
+
 import { chooseMode } from './chooseMode.js';
 
 export function renderStartPage() {

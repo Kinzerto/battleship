@@ -20,9 +20,4 @@ export function activeBoard() {
 
   targetShips.classList.add('active');
   otherShips.classList.remove('active');
-
-  if (!gameState.isComputerMode) {
-    targetBoard.classList.remove('hidden');
-    otherBoard.classList.add('hidden');
-  }
 }

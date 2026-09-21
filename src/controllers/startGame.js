@@ -1,10 +1,6 @@
 import { renderBoard } from '../render/render-board.js';
-import { gameState } from '../state/state.js';
-import { addBoardListeners, LockShips, manual } from './manualPlaceShip.js';
-import { placeShapeRandomly } from './placeShapeRandomly.js';
+import { addBoardListeners, manual } from './manualPlaceShip.js';
 import {
-  activePlayer,
-  initialize,
   P1Element,
   P2Element,
   player1,
@@ -12,12 +8,8 @@ import {
   shipContainer1,
   shipContainer2,
 } from './players.js';
-import { playGame } from './playGame.js';
-import { reset } from './restart.js';
 
-export function startGame(params) {
-  // initialize();
-
+export function startGame() {
   renderBoard(player1, P1Element);
   renderBoard(player2, P2Element);
 
